@@ -1,0 +1,6 @@
+[
+	{
+		"caption": "Select Next Number",
+		"command": "select_next_number"
+	}
+]
