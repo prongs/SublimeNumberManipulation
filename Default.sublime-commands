@@ -2,5 +2,42 @@
 	{
 		"caption": "Select Next Number",
 		"command": "select_next_number"
-	}
+	},
+	{
+		"caption": "Increment Numbers",		
+		"command": "modify_numbers",
+		"args": {
+		"args":{
+			"modifier_name" : "increment"
+			}
+		}
+	},
+	{
+		"caption": "Decrement Numbers",
+		"command": "modify_numbers",
+		"args": {
+		"args":{
+			"modifier_name" : "decrement"
+			}
+		}
+	},
+	{
+		"caption": "Double Numbers",
+		"command": "modify_numbers",
+		"args": {
+		"args":{
+			"modifier_name" : "double"
+			}
+		}
+	},
+	{
+		"caption": "Square Numbers",
+		"command": "modify_numbers",
+		"args": {
+		"args":{
+			"modifier_name" : "squared"
+			}
+		}
+	}	
+
 ]
