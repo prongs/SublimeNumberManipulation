@@ -29,10 +29,18 @@ class SelectNextNumberCommand(sublime_plugin.TextCommand):
 
 class ModifyNumbersCommand(sublime_plugin.TextCommand):
     """docstring for ModifyNumberCommand"""
-    modifiers = {'increment': (lambda x: x + 1),
-                 'decrement': (lambda x: x - 1),
-                 'double': (lambda x: x * 2),
-                 'squared': (lambda x: x * x)}
+
+    def increment(self, x):
+        return x + 1
+
+    def decrement(self, x):
+        return x - 1
+
+    def double(self, x):
+        return x * 2
+
+    def squared(self, x):
+        return x * x
 
     def sequence(self, x):
         if self.position == 0:
@@ -43,12 +51,8 @@ class ModifyNumbersCommand(sublime_plugin.TextCommand):
         if 'modifier_function' in args:
             modifier = args['modifier_function']
         elif 'modifier_name' in args:
-            modifier_name = args['modifier_name']
-            if modifier_name in self.modifiers:
-                modifier = self.modifiers[modifier_name]
-            elif modifier_name in dir(self):
-                modifier = getattr(self, modifier_name)
-            else:
+            modifier = getattr(self, args['modifier_name'], None)
+            if not modifier:
                 self.view.set_status(
                     'SublimeNumberManipulation', 'SublimeNumberManipulation '
                     'plugin could not understand the  value of the parameter '
@@ -56,7 +60,6 @@ class ModifyNumbersCommand(sublime_plugin.TextCommand):
                 return
         self.view.run_command('select_next_number')
         sels = self.view.sel()
-        for i, sel in enumerate(sels):
-            self.position = i
+        for self.position, sel in enumerate(sels):
             self.view.replace(edit, sel,
                               str(modifier(int(self.view.substr(sel)))))
