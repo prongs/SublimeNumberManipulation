@@ -27,34 +27,36 @@ class SelectNextNumberCommand(sublime_plugin.TextCommand):
             sels.add(sel)
 
 
-def sequence_modifier(i, x):
-    global basis
-    if i == 0:
-        basis = x
-    return basis + i
-
-
 class ModifyNumbersCommand(sublime_plugin.TextCommand):
     """docstring for ModifyNumberCommand"""
-    modifiers = {'increment': (lambda i, x: x + 1),
-                 'decrement': (lambda i, x: x - 1),
-                 'double': (lambda i, x: x * 2),
-                 'squared': (lambda i, x: x * x),
-                 'sequence': sequence_modifier}
+    modifiers = {'increment': (lambda x: x + 1),
+                 'decrement': (lambda x: x - 1),
+                 'double': (lambda x: x * 2),
+                 'squared': (lambda x: x * x)}
+
+    def sequence(self, x):
+        if self.position == 0:
+            self.basis = x
+        return self.basis + self.position
 
     def run(self, edit, args):
         if 'modifier_function' in args:
             modifier = args['modifier_function']
         elif 'modifier_name' in args:
-            if args['modifier_name'] not in self.modifiers:
+            modifier_name = args['modifier_name']
+            if modifier_name in self.modifiers:
+                modifier = self.modifiers[modifier_name]
+            elif modifier_name in dir(self):
+                modifier = getattr(self, modifier_name)
+            else:
                 self.view.set_status(
                     'SublimeNumberManipulation', 'SublimeNumberManipulation '
                     'plugin could not understand the  value of the parameter '
                     'modifier_name')
                 return
-            modifier = self.modifiers[args['modifier_name']]
         self.view.run_command('select_next_number')
         sels = self.view.sel()
         for i, sel in enumerate(sels):
+            self.position = i
             self.view.replace(edit, sel,
-                              str(modifier(i, int(self.view.substr(sel)))))
+                              str(modifier(int(self.view.substr(sel)))))
