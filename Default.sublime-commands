@@ -38,6 +38,14 @@
 			"modifier_name" : "squared"
 			}
 		}
-	}	
-
+	},
+	{
+		"caption": "Number Sequence",
+		"command": "modify_numbers",
+		"args": {
+		"args":{
+			"modifier_name" : "sequence"
+			}
+		}
+	}
 ]

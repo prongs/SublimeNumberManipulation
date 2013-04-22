@@ -21,6 +21,7 @@ Another Use case is when writing snippets. There are `${1}` kind of placeholders
 	* **Decrement** : `ctrl-shift-P` -> `Decrement Numbers`. Decrements selected/just next numbers by 1
 	* **Square** : `ctrl-shift-P` -> `Square Numbers`. Squares selected/just next numbers by 1
 	* **Double** : `ctrl-shift-P` -> `Double Numbers`. Doubles selected/just next numbers by 1
+	* **Sequence**: `ctrl-shift-P` -> `Number Sequence`. Selected numbers are replaced by consecutive numbers, starting with the first value
 	* **Custom Modifications** : bring up the console by ctrl-\` and type 
         
             view.run_command('modify_numbers',{"args":{"modifier_function":(lambda x: x**3)}) #change the function given by the lambda for custom modification
