@@ -5,7 +5,7 @@ import itertools
 
 class SelectNextNumberCommand(sublime_plugin.TextCommand):
     def run(self, edit):
-        nums = list(str(i) for i in xrange(10))
+        nums = list(str(i) for i in range(10))
         sels = self.view.sel()
         new_sels = []
         for sel in sels:
