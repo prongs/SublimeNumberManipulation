@@ -47,5 +47,9 @@
 			"modifier_name" : "sequence"
 			}
 		}
+	},
+	{
+		"caption": "Batch Number Manipulation",
+		"command": "batch_modify_numbers"
 	}
 ]
