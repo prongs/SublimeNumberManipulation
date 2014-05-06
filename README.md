@@ -22,6 +22,7 @@ Another Use case is when writing snippets. There are `${1}` kind of placeholders
 	* **Square** : `ctrl-shift-P` -> `Square Numbers`. Squares selected/just next numbers by 1
 	* **Double** : `ctrl-shift-P` -> `Double Numbers`. Doubles selected/just next numbers by 1
 	* **Sequence**: `ctrl-shift-P` -> `Number Sequence`. Selected numbers are replaced by consecutive numbers, starting with the first value
+	* **Batch**: `ctrl-shift-P` -> `Batch Number Manipulation`. Selected numbers are computed against the formula. Supported functions are: `sin`, `cos`, `tan`, `log`, `e` and `pi`.
 	* **Custom Modifications** : bring up the console by ctrl-\` and type 
         
             view.run_command('modify_numbers',{"args":{"modifier_function":(lambda x: x**3)}) #change the function given by the lambda for custom modification
