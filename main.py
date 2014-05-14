@@ -32,50 +32,38 @@ class SelectNextNumberCommand(sublime_plugin.TextCommand):
 
 class Calculator(object):
     class CalculatorTransformer(NodeTransformer):
-        def __init__(self, x):
-            self.x = x
-
-        # def visit_Call(self, node):
-        #     if node.func.id == "sin":
-        #         math = Name(id='math', ctx=Load(), lineno=0, col_offset=0)
-        #         sin = Attribute(value=math, attr='sin', ctx=Load(), lineno=0, col_offset=0)
-        #         call = Call(func=sin, args=node.args, keywords=[], lineno=0, col_offset=0)
-        #         return copy_location(call, node)
-        #     else:
-        #         return None # block all other strange identifier
+        def __init__(self):
+            pass
+            # self.x = x
 
         def visit_Name(self, node):
-            if node.id == "x":
-                num = Num(self.x, lineno=0, col_offset=0)
-                return copy_location(num, node)
-            # else if node.id == "pi":
+            # if node.id == "x":
             #     num = Num(self.x, lineno=0, col_offset=0)
             #     return copy_location(num, node)
-            # else if node.id == "e":
-            #     num = Num(math.e, lineno=0, col_offset=0)
-            #     return copy_location(num, node)
-            elif node.id in ("sin", "cos", "tan", "log", "e", "pi"):
+            # el
+            if node.id in ("x", "i", "sin", "cos", "tan", "log", "e", "pi"):
                 return node
             else:
                 return None # block all other strange identifier
 
     def __init__(self, formula):
         self.formula = formula
-
-    def calculate(self, x):
         tree = parse(self.formula, '<string>', 'eval')
-        tree = Calculator.CalculatorTransformer(x).visit(tree)
-        code = compile(tree, '<ast_tree>', 'eval')
+        tree = Calculator.CalculatorTransformer().visit(tree)
+        self.code = compile(tree, '<ast_tree>', 'eval')
         import math
-        ns = vars(math).copy()
-        ns['__builtins__'] = None
-        return eval(code, ns)
+        self.ns = vars(math).copy()
+        self.ns['__builtins__'] = None
+
+    def calculate(self, x, i):
+        self.ns['i'] = i
+        self.ns['x'] = x
+        print self.code
+        print self.ns
+        return eval(self.code, self.ns)
 
 
 class BatchModifyNumbersCommand(sublime_plugin.WindowCommand):
-    def calculate(self, x):
-        return self.calculator.calculate(x)
-
     def onDone(self, text):
         self.setLastUsedFormula(text)
         self.calculator = Calculator(text)
@@ -84,8 +72,10 @@ class BatchModifyNumbersCommand(sublime_plugin.WindowCommand):
         sels = active_view.sel()
         try:
             edit = active_view.begin_edit()
+            i = 0
             for self.position, sel in enumerate(sels):
-                result = self.calculate(int(active_view.substr(sel)))
+                result = self.calculator.calculate(int(active_view.substr(sel)), i)
+                i += 1
                 print "result: ", result
                 active_view.replace(edit, sel, str(result))
         finally:
