@@ -98,6 +98,28 @@ class BatchModifyNumbersCommand(sublime_plugin.WindowCommand):
         self.askFormula()
 
 
+class AccumulateNumbersCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.run_command('select_next_number')
+        sels = self.view.sel()
+        sum_value = 0
+        for self.position, sel in enumerate(sels):
+            sum_value += int(self.view.substr(sel))
+            self.view.replace(edit, sel, str(sum_value))
+
+
+class SumAllNumbersCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        self.view.run_command('select_next_number')
+        sels = self.view.sel()
+        sum_value = 0
+        for self.position, sel in enumerate(sels):
+            sum_value += int(self.view.substr(sel))
+        sum_str = str(sum_value)
+        for self.position, sel in enumerate(sels):
+            self.view.replace(edit, sel, sum_str)
+
+
 class ModifyNumbersCommand(sublime_plugin.TextCommand):
     """docstring for ModifyNumberCommand"""
 

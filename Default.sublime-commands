@@ -51,5 +51,13 @@
 	{
 		"caption": "Batch Number Manipulation",
 		"command": "batch_modify_numbers"
+	},
+	{
+		"caption": "Accumulate Selected Number(s)",
+		"command": "accumulate_numbers"
+	},
+	{
+		"caption": "Sum Up Selected Number(s)",
+		"command": "sum_all_numbers"
 	}
 ]

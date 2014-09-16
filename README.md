@@ -22,6 +22,8 @@ Another Use case is when writing snippets. There are `${1}` kind of placeholders
 	* **Square** : `ctrl-shift-P` -> `Square Numbers`. Squares selected/just next numbers by 1
 	* **Double** : `ctrl-shift-P` -> `Double Numbers`. Doubles selected/just next numbers by 1
 	* **Sequence**: `ctrl-shift-P` -> `Number Sequence`. Selected numbers are replaced by consecutive numbers, starting with the first value
+	* **Accumulation**: `ctrl-shift-P` -> `Accumulate Selected Number(s)`. Selected numbers are replaced by the accumlating sum
+	* **Summation**: `ctrl-shift-P` -> `Sum Up Selected Number(s)`. All selected numbers are replace by the total sum
 	* **Batch**: `ctrl-shift-P` -> `Batch Number Manipulation`. Selected numbers are computed against the formula. Supported functions are: `sin`, `cos`, `tan`, `log`, `e` and `pi`. The variable `x` will be substituted to the number selected. The variable `i` will be substituted to the index of the selection (started from 0).
 	* **Custom Modifications** : bring up the console by ctrl-\` and type 
         
