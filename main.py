@@ -58,8 +58,8 @@ class Calculator(object):
     def calculate(self, x, i):
         self.ns['i'] = i
         self.ns['x'] = x
-        print self.code
-        print self.ns
+        print(self.code)
+        print(self.ns)
         return eval(self.code, self.ns)
 
 
@@ -76,7 +76,7 @@ class BatchModifyNumbersCommand(sublime_plugin.WindowCommand):
             for self.position, sel in enumerate(sels):
                 result = self.calculator.calculate(int(active_view.substr(sel)), i)
                 i += 1
-                print "result: ", result
+                print("result: " + str(result))
                 active_view.replace(edit, sel, str(result))
         finally:
             active_view.end_edit(edit)
